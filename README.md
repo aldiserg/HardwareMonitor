@@ -1,5 +1,6 @@
-# HardwareMonitor
+# HardwareMonitor Arduino + python
 Analog of https://github.com/AlexGyver/PCdisplay for linux OS. Just display (GPU is NVidia only)
+![How it looks like](hhttps://github.com/aldiserg/HardwareMonitor/blob/main/view.png)
 
 # Setup
 Upload sketch to arduino via arduino ide
