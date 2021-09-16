@@ -1,5 +1,5 @@
 # HardwareMonitor
-Analog of https://github.com/AlexGyver/PCdisplay for linux OS (GPU is NVidia)
+Analog of https://github.com/AlexGyver/PCdisplay for linux OS. Just display (GPU is NVidia only)
 
 # Setup
 Upload sketch to arduino via arduino ide
