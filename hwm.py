@@ -1,28 +1,30 @@
 # Importing Libraries
 import serial
 import time
-import nvidia_smi
+from nvitop import Device
 import psutil
+import json
 
 arduino = serial.Serial(port='/dev/ttyUSB1', baudrate=9600, timeout=.1)
-
-nvidia_smi.nvmlInit()
+nvidia0 = Device(0)
 while True:
-    handle = nvidia_smi.nvmlDeviceGetHandleByIndex(0)
-    gpu = nvidia_smi.nvmlDeviceGetUtilizationRates(handle)
-    
-#   cpuJson = str(psutil.sensors_temperatures())
-#   cpuTemp = int(cpuJson.split(",")[1][9:11])
+    gpu = nvidia0.as_snapshot()
+    gpuTemp = gpu.temperature
+    gpuUsage = gpu.gpu_utilization
+    gpuMem = int(gpu.memory_utilization)
+    print(gpuTemp, gpuUsage)
+
+    cpuJson = json.dumps(psutil.sensors_temperatures())
+    cpuTemp = int(json.loads(cpuJson)["k10temp"][0][1])
 
     ram = int(psutil.virtual_memory().percent)
 
     cpu = int(psutil.cpu_percent())
 
-    array = [cpu, gpu.gpu, gpu.memory, ram]
-    print(f'cpu: {cpu}%, gpu: {gpu.gpu}%, gpuMem: {gpu.memory}%, ram: {ram}%')
+    array = [cpu, gpuUsage, gpuMem, ram, cpuTemp, gpuTemp]
+    print(f'cpu: {cpu}%, gpu: {gpuUsage}%, gpuMem: {gpuMem}%, ram: {ram}%, cpuTemp: {cpuTemp}%, gpuTemp: {gpuTemp}%')
 
     data = bytearray(array)
     arduino.write(data)
-    print(arduino.readline())
     time.sleep(1)
     
