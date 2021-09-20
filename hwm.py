@@ -1,18 +1,17 @@
 # Importing Libraries
-import serial
+from serial import Serial
 import time
 from nvitop import Device
 import psutil
 import json
 
-arduino = serial.Serial(port='/dev/ttyUSB1', baudrate=9600, timeout=.1)
+arduino = Serial(port='/dev/ttyUSB1', baudrate=9600, timeout=.1)
 nvidia0 = Device(0)
 while True:
     gpu = nvidia0.as_snapshot()
     gpuTemp = gpu.temperature
     gpuUsage = gpu.gpu_utilization
     gpuMem = int(gpu.memory_utilization)
-    print(gpuTemp, gpuUsage)
 
     cpuJson = json.dumps(psutil.sensors_temperatures())
     cpuTemp = int(json.loads(cpuJson)["k10temp"][0][1])

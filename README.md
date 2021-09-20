@@ -8,10 +8,12 @@ Upload sketch to arduino via arduino ide
 
 Install libs:
 ```
-pip3 install nvidia_smi
+pip3 install pyserial psutil nvitop
 ```
 Check tty device path
-
+```
+ls -l /dev/ttyUSB*
+```
 Run for check allright
 ```
 python3 hwm.py
