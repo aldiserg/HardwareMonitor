@@ -9,8 +9,8 @@ Upload sketch to arduino via arduino ide
 Install libs + add access:
 ```
 pip3 install pyserial psutil nvitop
-sudo gpasswd -a dmitry tty
-sudo gpasswd -a dmitry uucp
+sudo gpasswd -a username tty
+sudo gpasswd -a username uucp
 ```
 Check tty device path
 ```
