@@ -23,6 +23,6 @@ python3 hwm.py
 
 Copy hwm.service and start + add to startup
 ```
-cp hwm.service /etc/systemd/system/hwm.service
+sudo cp hwm.service /etc/systemd/system/hwm.service
 systemctl enable hwm --now
 ```
