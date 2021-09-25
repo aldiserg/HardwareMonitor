@@ -6,9 +6,11 @@ Analog of https://github.com/AlexGyver/PCdisplay for linux OS. Just display (NVi
 # Setup
 Upload sketch to arduino via arduino ide
 
-Install libs:
+Install libs + add access:
 ```
 pip3 install pyserial psutil nvitop
+sudo gpasswd -a dmitry tty
+sudo gpasswd -a dmitry uucp
 ```
 Check tty device path
 ```
