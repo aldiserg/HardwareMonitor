@@ -7,8 +7,19 @@ Analog of https://github.com/AlexGyver/PCdisplay for linux OS. Just display (NVi
 Upload sketch to arduino via arduino ide
 
 Install libs + add access:
+
+For NVIDIA gpu
 ```
 pip3 install pyserial psutil nvitop
+```
+
+For AMD gpu
+```
+pip3 install pyserial psutil pyamdgpuinfo
+```
+
+Add permistion to /dev/ttyUSBx
+```
 sudo gpasswd -a username tty
 sudo gpasswd -a username uucp
 ```
