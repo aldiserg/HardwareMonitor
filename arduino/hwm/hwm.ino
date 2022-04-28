@@ -49,13 +49,18 @@ void loop() {
     }
   }
   
-  if (Serial.available() > 0) {
+  if (Serial.available()>6) {
     err = 0;
     printErr = 0;
     for (int i = 0; i < 6; i++) { 
-      while (!Serial.available());
-      PCdata[i] = Serial.read();
+      char aChar = Serial.read();
+      if (aChar < 0) {
+        break;
+      }
+      PCdata[i] = aChar;
+      Serial.print(PCdata[i]);
     }
+    Serial.println();
   }
   if (printErr != 1){
     static_info();
@@ -100,7 +105,6 @@ void printTable() {
   }
 }
     
-
 void static_info() {
     lcd.createChar(0, degree);
     lcd.createChar(1, left_empty);
