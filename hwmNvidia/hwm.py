@@ -23,6 +23,6 @@ while True:
 
     print(f'cpu: {cpu}%, gpu: {gpuUsage}%, gpuMem: {gpuMem}%, ram: {ram}%, cpuTemp: {cpuTemp}, gpuTemp: {gpuTemp}')
 
-    arduino.write(struct.pack('BBBBBB',cpu,gpuUsage,gpuMemPercentUsage,ram,cpuTemp,gpuTemp))
+    arduino.write(struct.pack('BBBBBB',cpu,gpuUsage,gpuMem,ram,cpuTemp,gpuTemp))
     time.sleep(1)
     
