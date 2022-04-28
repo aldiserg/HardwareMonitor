@@ -1,5 +1,5 @@
 # HardwareMonitor Arduino + python
-Analog of https://github.com/AlexGyver/PCdisplay for linux OS. Just display (NVidia GPU only)
+Analog of https://github.com/AlexGyver/PCdisplay for linux OS. Just displayed system perfomance info 
 
 ![How it looks like](https://github.com/aldiserg/HardwareMonitor/blob/main/view.png?raw=true)
 
@@ -32,7 +32,7 @@ Run for check allright
 python3 hwm.py
 ```
 
-Copy hwm.service and start + add to startup
+Change hwm.service to correct user and path to script, after that copy and start service (will be added to startup of system)
 ```
 sudo cp hwm.service /etc/systemd/system/hwm.service
 systemctl enable hwm --now

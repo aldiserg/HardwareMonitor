@@ -53,6 +53,7 @@ void loop() {
     err = 0;
     printErr = 0;
     for (int i = 0; i < 6; i++) { 
+      while (!Serial.available());
       PCdata[i] = Serial.read();
     }
   }

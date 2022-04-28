@@ -2,6 +2,7 @@
 from serial import Serial
 import time
 from nvitop import Device
+import struct
 import psutil
 import json
 
@@ -20,10 +21,8 @@ while True:
 
     cpu = int(psutil.cpu_percent())
 
-    array = [cpu, gpuUsage, gpuMem, ram, cpuTemp, gpuTemp]
-    print(f'cpu: {cpu}%, gpu: {gpuUsage}%, gpuMem: {gpuMem}%, ram: {ram}%, cpuTemp: {cpuTemp}%, gpuTemp: {gpuTemp}%')
+    print(f'cpu: {cpu}%, gpu: {gpuUsage}%, gpuMem: {gpuMem}%, ram: {ram}%, cpuTemp: {cpuTemp}, gpuTemp: {gpuTemp}')
 
-    data = bytearray(array)
-    arduino.write(data)
+    arduino.write(struct.pack('BBBBBB',cpu,gpuUsage,gpuMemPercentUsage,ram,cpuTemp,gpuTemp))
     time.sleep(1)
     
