@@ -22,6 +22,10 @@ Add permistion to /dev/ttyUSBx
 ```
 sudo gpasswd -a username tty
 sudo gpasswd -a username uucp
+
+or
+
+sudo chown username:usergroup /dev/ttyUSBx
 ```
 Check tty device path
 ```
