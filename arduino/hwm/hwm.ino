@@ -18,6 +18,7 @@ byte row8[8] = {0b11111,  0b11111,  0b11111,  0b11111,  0b11111,  0b11111,  0b11
 
 unsigned long err;
 int PCdata[6];
+int PreviousPCdata[6];
 int printErr;
 String perc;
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -49,16 +50,18 @@ void loop() {
     }
   }
   
-  if (Serial.available()>6) {
+  if (Serial.available() > 0) {
     err = 0;
     printErr = 0;
     for (int i = 0; i < 6; i++) { 
       char aChar = Serial.read();
       if (aChar < 0) {
-        printErr = 1;
-        break;
+        PCdata[i] = PreviousPCdata[i];
       }
-      PCdata[i] = aChar;
+      else {
+        PCdata[i] = aChar;
+      }
+      PreviousPCdata[i] = PCdata[i];
       Serial.print(PCdata[i]);
       Serial.println();
     }
@@ -73,35 +76,35 @@ void loop() {
 
 void printData() {
   // CPU temp
-  lcd.setCursor(4, 0); lcd.print(PCdata[0]); lcd.write(223);
+  lcd.setCursor(4, 0); lcd.print(PCdata[4]); lcd.write(223);
   // CPU load
-  lcd.setCursor(17, 0); lcd.print(PCdata[2]);
-  if (PCdata[2] < 10) perc = "% ";
+  lcd.setCursor(17, 0); lcd.print(PCdata[0]);
+  if (PCdata[0] < 10) perc = "% ";
     else if (PCdata[2] < 100) perc = "%";
       else perc = "";  lcd.print(perc);
   // GPU temp
-  lcd.setCursor(4, 1); lcd.print(PCdata[1]); lcd.write(223);
+  lcd.setCursor(4, 1); lcd.print(PCdata[5]); lcd.write(223);
   // GPU load
-  lcd.setCursor(17, 1); lcd.print(PCdata[3]);
-    if (PCdata[3] < 10) perc = "% ";
-      else if (PCdata[3] < 100) perc = "%";
+  lcd.setCursor(17, 1); lcd.print(PCdata[1]); 
+    if (PCdata[1] < 10) perc = "% ";
+      else if (PCdata[1] < 100) perc = "%";
         else perc = "";  lcd.print(perc);
   // GPU memory usage
-  lcd.setCursor(17, 2); lcd.print(PCdata[4]);
-  if (PCdata[4] < 10) perc = "% ";
+  lcd.setCursor(17, 2); lcd.print(PCdata[2]);
+  if (PCdata[2] < 10) perc = "% ";
     else if (PCdata[4] < 100) perc = "%";
       else perc = "";  lcd.print(perc);
   // RAM usage
-  lcd.setCursor(17, 3); lcd.print(PCdata[5]);
-  if (PCdata[5] < 10) perc = "% ";
+  lcd.setCursor(17, 3); lcd.print(PCdata[3]);
+  if (PCdata[3] < 10) perc = "% ";
     else if (PCdata[5] < 100) perc = "%";
       else perc = "";  lcd.print(perc);
 }
      
 void printTable() {
-  for (int i = 2; i < 6; i++) {
+  for (int i = 0; i < 4; i++) {
     byte line = ceil(PCdata[i] / 10);
-    lcd.setCursor(7, i-2);
+    lcd.setCursor(7, i);
     if (line == 0) lcd.printByte(1)
       else lcd.printByte(4);
     for (int n = 1; n < 9; n++) {
