@@ -49,7 +49,7 @@ void loop() {
       lcd.print("FAILED"); 
     }
   }
-  
+
   if (Serial.available() > 0) {
     err = 0;
     printErr = 0;
@@ -60,8 +60,8 @@ void loop() {
       }
       else {
         PCdata[i] = aChar;
+        PreviousPCdata[i] = PCdata[i];
       }
-      PreviousPCdata[i] = PCdata[i];
       Serial.print(PCdata[i]);
       Serial.println();
     }
